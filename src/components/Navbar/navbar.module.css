@@ -1,3 +1,3 @@
-.nav{grid-area:n;background: blue}
-.item{color:#fff}
-.item.active{color:gold}
+.nav{grid-area:n;background: blue;padding:20px}
+.item a{color:#fff;text-decoration: none}
+.item a.activeLink{color:gold}
