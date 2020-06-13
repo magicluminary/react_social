@@ -7,8 +7,12 @@
     grid-template-columns: 2fr 10fr;
     /*grid-gap: 10px;*/
 }
-
+a{text-decoration:none}
 .app-wrapper-content{
     grid-area:c;
     background: aquamarine;
 }
+img.avatar{
+    width:30px;height:30px;object-fit:contain;border-radius:50%;background:#fff;margin-right:10px;
+}
+.sidebar{grid-area:n;background: blue;padding:20px}

@@ -9,11 +9,30 @@
     color: gold;
 }
 .dialog{
-
+    clear: both;margin-bottom:10px;
+}
+.dialog a{
+    display:flex;align-items:center;
 }
 .messages{
     padding: 10px;
+    color: white;
 }
 .message{
-
+    clear:both;
+    color: #333;
+    width:100%;
+    margin-bottom:10px;
 }
+.message:after{
+    content:'';
+    clear:both;
+    display:block;
+}
+.message>div{width:100%}
+.message .owner{
+    float:right;
+}
+.message_content{background:#fff;padding:10px;border-radius:4px;min-width:50%;width:calc(100% - 100px);display:inline-block}
+
+.message .owner img{float:right}
