@@ -8,7 +8,11 @@ import Post from "./MyPosts/Post/Post";
 const Profile = (props) => {
     return <div className={c.container}>
         <ProfileInfo />
-       <MyPosts posts={props.posts}/>
+       <MyPosts posts={props.state.posts}
+                addPost={props.addPost}
+                newPostText={props.state.newPostText}
+                updateNewPostText = {props.updateNewPostText}
+       />
     </div>
 }
 export default Profile;

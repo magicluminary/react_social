@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/navbar";
+import Navbar from "./components/Sidebar/Navbar/navbar";
 import Footer from "./components/Footer";
 import Profile from "./components/Profile/profile";
 import Dialogs from "./components/Dialogs/Dialogs";
@@ -9,7 +9,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import Friends from "./components/Friends/Friends";
+import Friends from "./components/Sidebar/Friends/Friends";
 
 const App = (props) => {
     return (
@@ -22,7 +22,7 @@ const App = (props) => {
                 </div>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogesPage}/>}/>
-                    <Route path='/profile' render={() => <Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.profilePage} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>}  />
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
