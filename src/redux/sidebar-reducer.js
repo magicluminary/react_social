@@ -1,3 +1,5 @@
 const sidebarReducer = (state, action) => {
-    return state;
+    return '';
 }
+
+export default sidebarReducer;

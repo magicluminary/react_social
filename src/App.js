@@ -11,6 +11,7 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Sidebar/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
     return (
@@ -22,8 +23,12 @@ const App = (props) => {
                     {/*<Friends state={props.store.getState().sidebar}/>*/}
                 </div>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <DialogsContainer state={props.store} />}/>
-                    <Route path='/profile' render={() => <Profile store={props.store} />}  />
+                    <Route path='/dialogs'
+                           render={() => <DialogsContainer state={props.store} />} />
+                    <Route path='/profile'
+                           render={() => <Profile store={props.store} />}   />
+                    <Route path='/users'
+                           render={() => <UsersContainer />} />
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
