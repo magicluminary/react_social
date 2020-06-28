@@ -12,6 +12,7 @@ import Settings from "./components/Settings/Settings";
 import Friends from "./components/Sidebar/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = (props) => {
     return (
@@ -24,9 +25,9 @@ const App = (props) => {
                 </div>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <DialogsContainer state={props.store} />} />
-                    <Route path='/profile'
-                           render={() => <Profile store={props.store} />}   />
+                           render={() => <DialogsContainer  />} />
+                    <Route path='/profile/:userId?'
+                           render={() => <ProfileContainer  />}   />
                     <Route path='/users'
                            render={() => <UsersContainer />} />
                     <Route path='/news' component={News}/>
