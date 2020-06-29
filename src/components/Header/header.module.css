@@ -1,3 +1,5 @@
 .header{grid-area:h;background:green}
 .header img{width:50px}
+.loginblock{float:right;margin-right:100px}
+.loginblock a{color:#fff}
 
