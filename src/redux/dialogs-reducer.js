@@ -1,4 +1,4 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+// const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let initialState={
@@ -16,19 +16,18 @@ let initialState={
         {id: 3, name: 'Shura', avatar: 'https://png.pngtree.com/png-clipart/20190920/original/pngtree-cute-chubby-little-dinosaur-png-image_4625217.jpg'},
         {id: 4, name: 'Sveta', avatar: 'https://www.news4jax.com/resizer/b89RYEm5oAgzxJxWIGoyLJ9lZu8=/960x960/smart/filters:format(jpeg):strip_exif(true):strip_icc(true):no_upscale(true):quality(65)/cloudfront-us-east-1.images.arcpublishing.com/gmg/X462YQ4HIJEGHHX2I3LXRV4G7A.jpg'},
         {id: 5, name: 'Dima K', avatar: 'https://cdn.pixabay.com/photo/2016/12/13/16/17/dancer-1904467_960_720.png'}
-    ],
-    newMessageBody:''
+    ]
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
+        // case UPDATE_NEW_MESSAGE_BODY:
+        //     return {
+        //         ...state,
+        //         newMessageBody: action.body
+        //     }
         case SEND_MESSAGE:
-            let body = state.newMessageBody;
+            let body = action.newMessageBody;
             let newMessage = {
                 id: 8,
                 name: body,
@@ -37,7 +36,6 @@ const dialogsReducer = (state = initialState, action) => {
             };
             return {
                 ...state,
-                newMessageBody: '',
                 messages: [...state.messages, newMessage]
             }
         default:
@@ -45,7 +43,7 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE})
-export const updateNewMessageBodyCreator = (body) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body})
+export const sendMessageCreator = (newMessageBody) => ({type: SEND_MESSAGE,newMessageBody})
+// export const updateNewMessageBodyCreator = (body) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body})
 
 export default dialogsReducer;
