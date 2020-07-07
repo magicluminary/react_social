@@ -10,12 +10,11 @@ import Users from "./Users";
 import Preloader from "../common/preloader/preloader";
 import {compose} from "redux";
 import {
-    getUsersList,
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount, getUsersSuper, getUsersSuperSelector
+    getTotalUsersCount, getUsersSuperSelector
 } from "../../redux/user-selectors";
 
 class UsersContainer extends React.Component {
@@ -24,34 +23,12 @@ class UsersContainer extends React.Component {
     }
 
     componentDidMount() {
-        // const users = [
-        //     {
-        //         id: 1,
-        //         photos: {
-        //             small: 'https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg'
-        //         },
-        //         followed: true,
-        //         name: 'Dmitry',
-        //         status: 'Im a boss',
-        //         location: {city: 'Minsk', country: 'Belarus'}
-        //     },
-        //     {
-        //         id: 2,
-        //         photos: {
-        //             small: 'https://png.pngtree.com/png-clipart/20190920/original/pngtree-cute-chubby-little-dinosaur-png-image_4625217.jpg',
-        //         },
-        //         followed: false,
-        //         name: 'Sasja',
-        //         status: 'Im a boss too',
-        //         location: {city: 'Moscow', country: 'Russia'}
-        //     }
-        // ]
-        // this.props.setUsers(users)
         this.props.getUsers(this.props.currentPage,this.props.pageSize);
     }
 
     onPageChanged = (p) => {
-        this.props.getUsers(p,this.props.pageSize);
+        const pageSize = this.props.pageSize;
+        this.props.getUsers(p, pageSize);
     }
 
     render() {
@@ -70,20 +47,8 @@ class UsersContainer extends React.Component {
     }
 }
 
-// let mapStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
-
 let mapStateToProps = (state) => {
     return {
-        // users: getUsersSelector(state),
         users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
