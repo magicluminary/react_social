@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Sidebar/Navbar/navbar";
 import Footer from "./components/Footer";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -16,10 +16,6 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
-
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
-// import UsersContainer from "./components/Users/UsersContainer";
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
@@ -69,11 +65,12 @@ let AppContainer = compose(
 )(App);
 
 let SocialApp = (props) => {
-    return <BrowserRouter>
+    // basename={process.env.PUBLIC_URL}
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer />
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 }
 
 export default SocialApp;

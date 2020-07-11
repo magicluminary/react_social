@@ -1,6 +1,5 @@
 import * as axios from "axios";
 
-
 let instance = axios.create({
     withCredentials:true,
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
@@ -15,11 +14,11 @@ export const usersAPI = {
             return response.data;
         })
     },
-    followAPI(userID){
-        return instance.post(`follow/${userID}`, {})
+    followAPI(userId){
+        return instance.post(`follow/${userId}`, {})
     },
-    unfollowAPI(userID){
-        return instance.delete(`follow/${userID}`, {})
+    unfollowAPI(userId){
+        return instance.delete(`follow/${userId}`, {})
     }
 }
 export const profileAPI = {
@@ -27,11 +26,22 @@ export const profileAPI = {
         return instance.get('profile/'+userId);
     },
     getStatus(userId){
-        console.log('profile/status/'+userId)
         return instance.get('profile/status/'+userId);
     },
     updateStatus(status){
         return instance.put('profile/status',{status: status});
+    },
+    savePhoto(photo){
+        var formData = new FormData();
+        formData.append("image", photo);
+        return instance.put('profile/photo',formData,{
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
+        });
+    },
+    saveProfile(profile){
+        return instance.put('profile',profile);
     }
 }
 export const authAPI = {

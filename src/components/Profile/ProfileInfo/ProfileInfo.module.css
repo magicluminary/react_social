@@ -1,4 +1,8 @@
 .post{padding: 10px}
 .userdesc img{width:100px;height:100px;object-fit:contain;margin-right:20px}
-.description{padding:10px}
 .userdesc{display:flex}
+.description{padding:7px 0 0}
+.descriptions div b{margin-right:10px;display:inline-block}
+.descriptions .contact{padding-left:10px}
+.descriptions.edit .description>div{display: inline-block}
+.description{display: block}

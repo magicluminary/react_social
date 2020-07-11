@@ -10,14 +10,7 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
-    users: [
-        // {id:1, photo:'https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg',
-        //     followed:true, fullName:'Dmitry', status: 'Im a boss', location: {city: 'Minsk', country: 'Belarus'}},
-        // {id:2, photo : 'https://png.pngtree.com/png-clipart/20190920/original/pngtree-cute-chubby-little-dinosaur-png-image_4625217.jpg',
-        //     followed:false, fullName:'Sasja', status: 'Im a boss too', location: {city: 'Moscow', country: 'Russia'}},
-        // {id:3, photo:'https://www.news4jax.com/resizer/b89RYEm5oAgzxJxWIGoyLJ9lZu8=/960x960/smart/filters:format(jpeg):strip_exif(true):strip_icc(true):no_upscale(true):quality(65)/cloudfront-us-east-1.images.arcpublishing.com/gmg/X462YQ4HIJEGHHX2I3LXRV4G7A.jpg',
-        //     followed:false, fullName:'Andrew', status: 'Im a boss also', location: {city: 'Kiev', country: 'Ukraine'}}
-    ],
+    users: [],
     pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
@@ -30,12 +23,12 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userID, "id", {followed: true})
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
             };
         case UNFOLLOW: {
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userID, "id", {followed: false})
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
                 // users: state.users.map(u => {
                 //     if (u.id === action.userID) {
                 //         return {...u, followed: false}
@@ -64,24 +57,24 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 followingInProgress: action.isFetching
-                    ? [...state.followingInProgress, action.userID]
-                    : state.followingInProgress.filter(id => id != action.userID)
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
             }
         default:
             return state;
     }
 }
 
-export const followSuccess = (userID) => ({type: FOLLOW, userID})
-export const unfollowSuccess = (userID) => ({type: UNFOLLOW, userID})
+export const followSuccess = (userId) => ({type: FOLLOW, userId})
+export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (count) => ({type: SET_USERS_TOTAL_COUNT, count})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
-export const toggleFollowingProgress = (isFetching, userID) => ({
+export const toggleFollowingProgress = (isFetching, userId) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
-    userID
+    userId
 })
 
 export const getUsers = (page, pageSize) => {
@@ -95,24 +88,24 @@ export const getUsers = (page, pageSize) => {
     }
 }
 
-const followUnfollowFlow = async (dispatch, userID, apiMethod, actionCreator) => {
-    dispatch(toggleFollowingProgress(true, userID))
-    let response = await apiMethod(userID);
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    let response = await apiMethod(userId);
     if (response.data.resultCode == 0) {
-        dispatch(actionCreator(userID))
+        dispatch(actionCreator(userId))
     }
-    dispatch(toggleFollowingProgress(false, userID))
+    dispatch(toggleFollowingProgress(false, userId))
 }
 
-export const follow = (userID) => {
+export const follow = (userId) => {
     return async (dispatch) => {
-        followUnfollowFlow(dispatch, userID, usersAPI.followAPI.bind(usersAPI),followSuccess);
+        followUnfollowFlow(dispatch, userId, usersAPI.followAPI.bind(usersAPI),followSuccess);
     }
 }
 
-export const unfollow = (userID) => {
+export const unfollow = (userId) => {
     return async (dispatch) => {
-        followUnfollowFlow(dispatch, userID, usersAPI.unfollowAPI.bind(usersAPI),unfollowSuccess);
+        followUnfollowFlow(dispatch, userId, usersAPI.unfollowAPI.bind(usersAPI),unfollowSuccess);
     }
 }
 

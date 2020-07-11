@@ -11,7 +11,6 @@ const LoginForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
                 {createField("Login","email",[required],Input)}
-                {/*<Field placeholder={"Login"} name={"email"} component={Input} validate={[required]}/>*/}
             <div><Field placeholder={"Password"} name={"password"} type={"password"} component={Input} validate={[required]}/></div>
             <div><Field component={"input"} name={"rememberMe"} type={"checkbox"}/>remember me</div>
             {error && <div className={styles.formSummaryError}>{error}</div>}
@@ -23,7 +22,6 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData)
         props.login(formData.email,formData.password,formData.rememberMe)
     }
 
