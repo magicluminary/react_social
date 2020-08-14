@@ -6,3 +6,6 @@
 .descriptions .contact{padding-left:10px}
 .descriptions.edit .description>div{display: inline-block}
 .description{display: block}
+@media (max-width:767px) {
+    .userdesc{display:block}
+}

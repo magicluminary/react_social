@@ -1,8 +1,8 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from "./components/Sidebar/Navbar/navbar";
 import Footer from "./components/Footer";
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -16,18 +16,26 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
+
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (reason,promise) => {
+        alert('error')
+    }
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
     render() {
-        if(!this.props.initialized)
-            return <Preloader />
+        if (!this.props.initialized)
+            return <Preloader/>
 
         return (
             <div className='app-wrapper'>
@@ -37,17 +45,17 @@ class App extends React.Component {
                     {/*<Friends state={props.store.getState().sidebar}/>*/}
                 </div>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs'
-                           render={withSuspense(DialogsContainer)}/>
-                    <Route path='/profile/:userId?'
-                           render={withSuspense(ProfileContainer)}/>
-                    <Route path='/users'
-                           render={withSuspense(UsersContainer)}/>
-                    <Route path='/login'
-                           render={() => <LoginPage/>}/>
-                    <Route path='/news' component={News}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/settings' component={Settings}/>
+                    <Switch>
+                        <Route path='/' exact><Redirect to='/profile'/></Route>
+                        <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+                        <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
+                        <Route path='/users' render={withSuspense(UsersContainer)}/>
+                        <Route path='/login' render={() => <LoginPage/>}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/music' component={Music}/>
+                        <Route path='/settings' component={Settings}/>
+                        <Route path='*' render={() => <div>404</div>}/>
+                    </Switch>
                 </div>
                 <Footer/>
             </div>
@@ -66,11 +74,11 @@ let AppContainer = compose(
 
 let SocialApp = (props) => {
     // basename={process.env.PUBLIC_URL}
-    return <HashRouter>
+    return <BrowserRouter>
         <Provider store={store}>
-            <AppContainer />
+            <AppContainer/>
         </Provider>
-    </HashRouter>
+    </BrowserRouter>
 }
 
 export default SocialApp;

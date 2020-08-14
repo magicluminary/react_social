@@ -1,5 +1,10 @@
-.header{grid-area:h;background:green}
+.header{background:#0071c6;padding:20px 30px}
 .header img{width:50px}
-.loginblock{float:right;margin-right:100px}
+.loginblock{float:right;color:#fff}
 .loginblock a{color:#fff}
+.loginblock button{color:#fff}
+.logo{font-size:20px;color:#fff;font-weight:600}
+@media (max-width:767px) {
+    .header{padding:10px}
+}
 

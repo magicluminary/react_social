@@ -1,2 +1,4 @@
-.item a{color:#fff;text-decoration: none}
-.item a.activeLink{color:gold}
+.item a{color:#333;text-decoration: none;font-size: 15px;display:flex;align-items: center}
+.item a.activeLink{color:#0071c6}
+nav div{padding:10px}
+.item img{width:25px;height:25px;display:inline-block;margin-right:10px}
